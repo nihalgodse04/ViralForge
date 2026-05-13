@@ -246,6 +246,36 @@ html:not([data-theme='light']) .auth-logo.dark-theme-logo  { display: block; }
   box-shadow: 0 0 0 3px rgba(93, 63, 211, 0.1);
 }
 
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  padding-right: 48px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.password-toggle-btn:hover {
+  color: var(--text);
+  background-color: var(--border);
+}
+
 /* ── Submit Button ── */
 .btn-signin {
   background: var(--secondary);
