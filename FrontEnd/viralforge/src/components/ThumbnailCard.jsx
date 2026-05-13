@@ -1,14 +1,12 @@
 import React, { useState, memo } from 'react';
-import { Play, Download, ImageOff, Copy, Check } from 'lucide-react';
+import { Play, Download, ImageOff } from 'lucide-react';
 import './ThumbnailCard.css';
 
 const ThumbnailCard = memo(({ title, variant = 'purple', badge = 'AI Concept', imageUrl = null, prompt = '' }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
-  const [copiedPrompt, setCopiedPrompt] = useState(false);
 
-  const isFallback = imageUrl && imageUrl.includes('default-thumbnail.jpg');
-  const hasImage = imageUrl && !imgError && !isFallback;
+  const hasImage = imageUrl && !imgError;
 
   const handleDownload = (e) => {
     e.stopPropagation();
@@ -20,18 +18,10 @@ const ThumbnailCard = memo(({ title, variant = 'purple', badge = 'AI Concept', i
     link.click();
   };
 
-  const handleCopyPrompt = (e) => {
-    e.stopPropagation();
-    if (!prompt) return;
-    navigator.clipboard.writeText(prompt);
-    setCopiedPrompt(true);
-    setTimeout(() => setCopiedPrompt(false), 2000);
-  };
-
   return (
     <div className={`thumbnail-gen-card ${hasImage ? 'thumbnail-has-image' : ''} thumbnail-variant-${variant}`}>
       {/* AI Generated Image */}
-      {imageUrl && !imgError && !isFallback && (
+      {imageUrl && !imgError && (
         <img
           src={imageUrl}
           alt={title}
@@ -43,14 +33,14 @@ const ThumbnailCard = memo(({ title, variant = 'purple', badge = 'AI Concept', i
       )}
 
       {/* Shimmer skeleton while loading */}
-      {imageUrl && !imgLoaded && !imgError && !isFallback && (
+      {imageUrl && !imgLoaded && !imgError && (
         <div className="thumbnail-shimmer" />
       )}
 
-      {/* Fallback icon when no image or error */}
-      {(!imageUrl || imgError || isFallback) && (
+      {/* Fallback icon when no image */}
+      {(!imageUrl || imgError) && (
         <div className="thumbnail-play-icon thumbnail-play-visible">
-          {(imgError || isFallback) ? <ImageOff size={24} /> : <Play fill="currentColor" size={24} style={{ marginLeft: '4px' }} />}
+          {imgError ? <ImageOff size={24} /> : <Play fill="currentColor" size={24} style={{ marginLeft: '4px' }} />}
         </div>
       )}
 
@@ -61,19 +51,12 @@ const ThumbnailCard = memo(({ title, variant = 'purple', badge = 'AI Concept', i
         </div>
       )}
 
-      {/* Actions (Download / Copy Prompt) */}
-      <div className="thumbnail-actions">
-        {prompt && (
-          <button className="thumbnail-action-btn" onClick={handleCopyPrompt} aria-label="Copy Prompt" title="Copy Prompt">
-            {copiedPrompt ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-          </button>
-        )}
-        {hasImage && imgLoaded && (
-          <button className="thumbnail-action-btn" onClick={handleDownload} aria-label="Download thumbnail" title="Download Image">
-            <Download size={14} />
-          </button>
-        )}
-      </div>
+      {/* Download button */}
+      {hasImage && imgLoaded && (
+        <button className="thumbnail-download-btn" onClick={handleDownload} aria-label="Download thumbnail">
+          <Download size={16} />
+        </button>
+      )}
 
       {/* Title overlay */}
       <div className="thumbnail-title-overlay">

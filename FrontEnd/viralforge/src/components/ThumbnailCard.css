@@ -5,7 +5,7 @@
 .thumbnail-gen-card {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 9 / 16;
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
@@ -227,17 +227,11 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* ── Actions (Download / Copy Prompt) ── */
-.thumbnail-actions {
+/* ── Download Button ── */
+.thumbnail-download-btn {
   position: absolute;
   top: 14px;
   right: 14px;
-  display: flex;
-  gap: 8px;
-  z-index: 4;
-}
-
-.thumbnail-action-btn {
   width: 36px;
   height: 36px;
   border-radius: 10px;
@@ -253,20 +247,17 @@
   opacity: 0;
   transform: translateY(-4px);
   transition: all 0.25s ease;
+  z-index: 4;
 }
 
-.thumbnail-gen-card:hover .thumbnail-action-btn {
+.thumbnail-gen-card:hover .thumbnail-download-btn {
   opacity: 1;
   transform: translateY(0);
 }
 
-.thumbnail-action-btn:hover {
+.thumbnail-download-btn:hover {
   background: rgba(123, 97, 255, 0.7);
   border-color: rgba(123, 97, 255, 0.5);
-}
-
-.text-green-500 {
-  color: #22C55E !important;
 }
 
 /* ================================================
