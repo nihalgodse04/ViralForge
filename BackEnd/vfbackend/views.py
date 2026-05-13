@@ -5,12 +5,15 @@ API endpoints for auth, generation, projects, and regeneration.
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+
+import requests as http_requests
 
 from .models import Project
 from .serializers import (
@@ -44,6 +47,77 @@ class RegisterView(generics.CreateAPIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
 
     serializer_class = CustomTokenObtainPairSerializer
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def google_auth(request):
+    """
+    Accepts a Google ID token (credential) from the frontend,
+    verifies it with Google, creates or fetches the Django user,
+    and returns Django JWT access + refresh tokens.
+
+    POST /api/auth/google/
+    Body: { "credential": "<google_id_token>" }
+    """
+    credential = request.data.get('credential')
+    if not credential:
+        return Response(
+            {'error': 'Google credential is required.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Verify with Google's tokeninfo endpoint
+    try:
+        google_response = http_requests.get(
+            'https://oauth2.googleapis.com/tokeninfo',
+            params={'id_token': credential},
+            timeout=10
+        )
+        if google_response.status_code != 200:
+            return Response(
+                {'error': 'Invalid Google token. Please try again.'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        google_data = google_response.json()
+        email = google_data.get('email')
+        name = google_data.get('name', '')
+
+        if not email:
+            return Response(
+                {'error': 'Could not retrieve email from Google.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    except Exception:
+        return Response(
+            {'error': 'Failed to verify Google token. Check your network.'},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+    # Get or create Django user
+    user, created = User.objects.get_or_create(
+        username=email,
+        defaults={
+            'email': email,
+            'first_name': name,
+        }
+    )
+    if created:
+        # Set unusable password — Google users log in via OAuth only
+        user.set_unusable_password()
+        user.save()
+
+    # Issue Django JWT tokens
+    refresh = RefreshToken.for_user(user)
+
+    return Response({
+        'access': str(refresh.access_token),
+        'refresh': str(refresh),
+        'name': user.first_name or user.username,
+        'email': user.email,
+    })
 
 
 # ─────────────────────────────────────────────────────────────

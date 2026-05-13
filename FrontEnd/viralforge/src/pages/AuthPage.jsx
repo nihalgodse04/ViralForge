@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Sun, Moon } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
 import { authAPI } from '../services/api';
 import SigninBG from '../assets/SigninBG.png';
 import logoLight from '../assets/logoLight.png';
@@ -195,78 +194,42 @@ const AuthPage = () => {
 
                 <GoogleLogin
 
-                  onSuccess={(credentialResponse) => {
-
+                  onSuccess={async (credentialResponse) => {
                     try {
+                      setLoading(true);
+                      setError('');
 
-                      const decoded = jwtDecode(
-                        credentialResponse.credential
-                      );
+                      // Exchange the Google credential for Django JWT tokens.
+                      // This calls POST /api/auth/google/ on the backend.
+                      const res = await authAPI.googleAuth(credentialResponse.credential);
 
-                      // Demo Google session
-                      localStorage.setItem(
-                        "access_token",
-                        credentialResponse.credential
-                      );
+                      localStorage.setItem('access_token', res.data.access);
+                      localStorage.setItem('refresh_token', res.data.refresh);
+                      localStorage.setItem('user_name', res.data.name || 'User');
+                      localStorage.setItem('user_email', res.data.email || '');
+                      localStorage.removeItem('auth_provider'); // treat as normal JWT
 
-                      localStorage.setItem(
-                        "refresh_token",
-                        credentialResponse.credential
-                      );
-
-                      localStorage.setItem(
-                        "auth_provider",
-                        "google"
-                      );
-
-                      localStorage.setItem(
-                        "user_name",
-                        decoded.name || "Google User"
-                      );
-
-                      localStorage.setItem(
-                        "user_email",
-                        decoded.email || ""
-                      );
-
-                      // Demo credits
-                      localStorage.setItem(
-                        "credits",
-                        "10000"
-                      );
-
-                      localStorage.setItem(
-                        "total_generations",
-                        "0"
-                      );
-
-                      navigate("/dashboard");
+                      navigate('/dashboard');
 
                     } catch (err) {
-
-                      console.error(err);
-
+                      console.error('Google auth error:', err);
                       setError(
-                        "Google Sign-Up failed."
+                        err.response?.data?.error ||
+                        'Google Sign-Up failed. Please try again.'
                       );
+                    } finally {
+                      setLoading(false);
                     }
                   }}
 
                   onError={() => {
-
-                    setError(
-                      "Google Sign-Up Failed"
-                    );
+                    setError('Google Sign-Up Failed. Check your browser settings.');
                   }}
 
                   shape="pill"
-
                   size="large"
-
                   theme="outline"
-
                   text="signup_with"
-
                   width="320"
                 />
 

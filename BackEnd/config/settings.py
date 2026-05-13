@@ -61,9 +61,30 @@ MIDDLEWARE = [
 
 
 # ─── CORS ────────────────────────────────────────────────────
+# Allows the Vercel frontend to call this API.
+# Add your exact Vercel domain below.
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",           # Vite dev server
+    "http://localhost:3000",
+    "https://viralforge.vercel.app",   # ← Replace with your actual Vercel URL
+]
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "authorization",
+    "content-type",
+    "origin",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
+# Required for POST/DELETE from Vercel on HTTPS
+CSRF_TRUSTED_ORIGINS = [
+    "https://viralforge.vercel.app",   # ← Replace with your actual Vercel URL
+]
 
 
 # ─── DJANGO REST FRAMEWORK ──────────────────────────────────
@@ -72,9 +93,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ),
 }
 
@@ -84,6 +104,11 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=6),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
 }
 
 
@@ -119,7 +144,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+        default=os.environ.get(
+            'DATABASE_URL',
+            f"sqlite:///{BASE_DIR / 'db.sqlite3'}"  # SQLite for local dev only
+        ),
+        conn_max_age=600,  # Keep DB connections alive for 10 mins (important on Render)
     )
 }
 
