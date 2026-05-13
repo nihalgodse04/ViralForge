@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 import { authAPI } from '../services/api';
 import SigninBG from '../assets/SigninBG.png';
 import logoLight from '../assets/logoLight.png';
@@ -21,7 +22,7 @@ const AuthPage = () => {
     e.preventDefault();
     setError('');
 
-    if (!email)    { setError('Email is required.'); return; }
+    if (!email) { setError('Email is required.'); return; }
     if (!password) { setError('Password is required.'); return; }
     if (password.length < 6) { setError('Password must be at least 6 characters.'); return; }
 
@@ -86,7 +87,7 @@ const AuthPage = () => {
         <div className="auth-form-container">
           <div className="auth-logo-wrapper">
             <img src={logoLight} className="auth-logo light-theme-logo" alt="ViralForge Logo" width="120" height="44" />
-            <img src={logoDark}  className="auth-logo dark-theme-logo"  alt="ViralForge Logo" width="120" height="44" />
+            <img src={logoDark} className="auth-logo dark-theme-logo" alt="ViralForge Logo" width="120" height="44" />
           </div>
 
           <div className="auth-header">
@@ -162,15 +163,76 @@ const AuthPage = () => {
 
           <div className="social-login">
             <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+
               <GoogleLogin
-                onSuccess={res => console.log(res)}
-                onError={() => console.log('Login Failed')}
+
+                onSuccess={(credentialResponse) => {
+
+                  try {
+
+                    const decoded = jwtDecode(
+                      credentialResponse.credential
+                    );
+
+                    localStorage.setItem(
+                      "access_token",
+                      credentialResponse.credential
+                    );
+
+                    localStorage.setItem(
+                      "refresh_token",
+                      credentialResponse.credential
+                    );
+
+                    localStorage.setItem(
+                      "auth_provider",
+                      "google"
+                    );
+
+                    localStorage.setItem(
+                      "user_name",
+                      decoded.name || "Google User"
+                    );
+
+                    localStorage.setItem(
+                      "user_email",
+                      decoded.email || ""
+                    );
+
+                    navigate("/dashboard");
+
+                  } catch (err) {
+
+                    console.error(err);
+
+                    setError(
+                      "Google Sign-In failed."
+                    );
+                  }
+                }}
+
+                onError={() => {
+
+                  setError(
+                    "Google Login Failed"
+                  );
+                }}
+
                 shape="pill"
+
                 size="medium"
+
                 theme="outline"
-                text={isLogin ? 'signin_with' : 'signup_with'}
+
+                text={
+                  isLogin
+                    ? "signin_with"
+                    : "signup_with"
+                }
+
                 width="250"
               />
+
             </div>
           </div>
 

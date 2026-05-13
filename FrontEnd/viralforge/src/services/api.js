@@ -41,7 +41,15 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     // If 401 and we haven't retried yet, try refreshing the token
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+
+      error.response?.status === 401 &&
+
+      !originalRequest._retry &&
+
+      localStorage.getItem("auth_provider") !== "google"
+
+    ) {
       originalRequest._retry = true;
 
       try {
@@ -62,6 +70,7 @@ api.interceptors.response.use(
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('user_name');
         localStorage.removeItem('user_email');
+        localStorage.setItem("auth_provider", "local");
         window.location.href = '/auth';
         return Promise.reject(refreshErr);
       }
