@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 
-const API_BASE_URL = 'viral-forge-nihalgodse04-2249s-projects.vercel.app';
+const API_BASE_URL = 'https://viralforge-api-909u.onrender.com';
 
 // ─── Axios Instance ─────────────────────────────────────────
 
