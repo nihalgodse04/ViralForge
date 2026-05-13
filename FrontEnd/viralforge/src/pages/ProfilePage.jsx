@@ -10,8 +10,8 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const userName = localStorage.getItem('user_name') || 'Creator';
-  const userEmail = localStorage.getItem('user_email') || 'creator@example.com';
+  const userName = sessionStorage.getItem('user_name') || 'Creator';
+  const userEmail = sessionStorage.getItem('user_email') || 'creator@example.com';
   const userInitials = userName.substring(0, 2).toUpperCase();
   const joinedDate = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }); // Mocked for now
 
@@ -59,10 +59,7 @@ const ProfilePage = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user_name');
-    localStorage.removeItem('user_email');
+    sessionStorage.clear();
     navigate('/auth');
   };
 

@@ -45,10 +45,10 @@ const AuthPage = () => {
     try {
       if (isLogin) {
         const res = await authAPI.login({ username: email, password });
-        localStorage.setItem('access_token', res.data.access);
-        localStorage.setItem('refresh_token', res.data.refresh);
-        localStorage.setItem('user_name', res.data.name);
-        localStorage.setItem('user_email', res.data.email);
+        sessionStorage.setItem('access_token', res.data.access);
+        sessionStorage.setItem('refresh_token', res.data.refresh);
+        sessionStorage.setItem('user_name', res.data.name);
+        sessionStorage.setItem('user_email', res.data.email);
         navigate('/dashboard');
       } else {
         await authAPI.register({ email, password, name, username: email });
@@ -203,11 +203,11 @@ const AuthPage = () => {
                       // This calls POST /api/auth/google/ on the backend.
                       const res = await authAPI.googleAuth(credentialResponse.credential);
 
-                      localStorage.setItem('access_token', res.data.access);
-                      localStorage.setItem('refresh_token', res.data.refresh);
-                      localStorage.setItem('user_name', res.data.name || 'User');
-                      localStorage.setItem('user_email', res.data.email || '');
-                      localStorage.removeItem('auth_provider'); // treat as normal JWT
+                      sessionStorage.setItem('access_token', res.data.access);
+                      sessionStorage.setItem('refresh_token', res.data.refresh);
+                      sessionStorage.setItem('user_name', res.data.name || 'User');
+                      sessionStorage.setItem('user_email', res.data.email || '');
+                      sessionStorage.removeItem('auth_provider'); // treat as normal JWT
 
                       navigate('/dashboard');
 

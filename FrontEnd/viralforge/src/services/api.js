@@ -29,7 +29,7 @@ const api = axios.create({
 // ─── Request Interceptor — Attach JWT Bearer Token ───────────
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('access_token');
+    const token = sessionStorage.getItem('access_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -52,7 +52,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem('refresh_token');
+        const refreshToken = sessionStorage.getItem('refresh_token');
         if (!refreshToken) throw new Error('No refresh token');
 
         // Use raw axios (not the intercepted instance) to avoid infinite loop
@@ -61,22 +61,21 @@ api.interceptors.response.use(
         });
 
         const newAccess = res.data.access;
-        localStorage.setItem('access_token', newAccess);
+        sessionStorage.setItem('access_token', newAccess);
         originalRequest.headers.Authorization = `Bearer ${newAccess}`;
         return api(originalRequest);
 
       } catch {
         // Refresh failed — clear everything and redirect to login
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        localStorage.removeItem('user_name');
-        localStorage.removeItem('user_email');
-        localStorage.removeItem('auth_provider');
-        localStorage.removeItem('credits');
-        localStorage.removeItem('total_generations');
+        sessionStorage.clear();
         window.location.href = '/auth';
         return Promise.reject(error);
       }
+    }
+
+    // 401 on non-retry requests: clear session state
+    if (error.response?.status === 401) {
+      sessionStorage.clear();
     }
 
     return Promise.reject(error);

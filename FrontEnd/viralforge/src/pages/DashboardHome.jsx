@@ -49,7 +49,7 @@ const STATS_GRID = {
 
 const DashboardHome = () => {
   const navigate = useNavigate();
-  const userName = localStorage.getItem('user_name') || 'Creator';
+  const userName = sessionStorage.getItem('user_name') || 'Creator';
 
   const [stats, setStats] = useState({
     total_projects: 0,

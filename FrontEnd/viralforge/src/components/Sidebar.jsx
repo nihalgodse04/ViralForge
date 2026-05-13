@@ -33,8 +33,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const userName = localStorage.getItem('user_name') || 'Creator';
-  const userEmail = localStorage.getItem('user_email') || '';
+  const userName = sessionStorage.getItem('user_name') || 'Creator';
+  const userEmail = sessionStorage.getItem('user_email') || '';
   const userInitials = userName.substring(0, 2).toUpperCase();
 
   const isActive = useCallback((path) => {

@@ -38,13 +38,13 @@ const PageLoader = () => (
 );
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('access_token');
+  const token = sessionStorage.getItem('access_token');
   if (!token) return <Navigate to="/auth" replace />;
   return children;
 };
 
 const PublicRoute = ({ children }) => {
-  const token = localStorage.getItem('access_token');
+  const token = sessionStorage.getItem('access_token');
   if (token) return <Navigate to="/dashboard" replace />;
   return children;
 };
