@@ -127,18 +127,16 @@ def google_auth(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_credits(request):
-
-    profile = request.user.userprofile
+    # get_or_create ensures no crash if profile is missing (e.g. old users or race conditions)
+    profile, _ = request.user.userprofile.__class__.objects.get_or_create(
+        user=request.user,
+        defaults={'credits': 10000, 'total_generations': 0}
+    )
 
     return Response({
-
         "credits": profile.credits,
-
         "max_credits": 10000,
-
-        "total_generations":
-            profile.total_generations
-
+        "total_generations": profile.total_generations,
     })
 
 
@@ -156,7 +154,10 @@ def generate_content(request):
 
         data = request.data
 
-        profile = request.user.userprofile
+        profile, _ = request.user.userprofile.__class__.objects.get_or_create(
+            user=request.user,
+            defaults={'credits': 10000, 'total_generations': 0}
+        )
 
         # ── Credit Validation ─────────────────
 
@@ -330,7 +331,10 @@ def regenerate_project(request, project_id):
             user=request.user
         )
 
-        profile = request.user.userprofile
+        profile, _ = request.user.userprofile.__class__.objects.get_or_create(
+            user=request.user,
+            defaults={'credits': 10000, 'total_generations': 0}
+        )
 
         # ── Credit Check ──────────────────────
 
@@ -511,9 +515,11 @@ def dashboard_stats(request):
 
     total_projects = user_projects.count()
 
-    total_generations = (
-        request.user.userprofile.total_generations
+    profile, _ = request.user.userprofile.__class__.objects.get_or_create(
+        user=request.user,
+        defaults={'credits': 10000, 'total_generations': 0}
     )
+    total_generations = profile.total_generations
 
     hours_saved = total_generations * 2
 

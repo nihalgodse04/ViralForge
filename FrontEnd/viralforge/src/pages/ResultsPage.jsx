@@ -461,7 +461,7 @@ const ResultsPage = () => {
                         key={`ai-${i}`}
                         title={thumb.prompt?.split(',')[0] || thumbnailTitles[i] || 'AI Thumbnail'}
                         variant={variants[i % variants.length]}
-                        imageUrl={thumb.image_url ? `http://localhost:8000${thumb.image_url}` : null}
+                        imageUrl={thumb.image_url ? `${(import.meta.env.VITE_API_URL || 'http://localhost:8000/api').replace('/api', '')}${thumb.image_url}` : null}
                         prompt={thumb.prompt}
                         badge="AI Generated"
                       />

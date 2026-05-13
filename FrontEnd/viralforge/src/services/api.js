@@ -1,23 +1,22 @@
 /**
  * ViralForge AI — API Service Layer
  * Centralized Axios instance with JWT interceptors.
- * All API calls go through this module.
  *
- * REQUIRED ENV VARIABLE (Vercel):
- *   VITE_API_URL = https://viralforge-api-909u.onrender.com/api
+ * REQUIRED ENV VARIABLES:
+ *   Vercel:  VITE_API_URL = https://viralforge-api-909u.onrender.com/api
+ *   Local:   Automatically falls back to http://localhost:8000/api
+ *
+ * IMPORTANT: baseURL already contains /api — do NOT prefix endpoints with /api/
  */
 
 import axios from 'axios';
 
 // ─── Base URL ────────────────────────────────────────────────
-// Uses VITE_API_URL in production (Vercel), falls back to localhost for dev.
-// IMPORTANT: The URL must include /api at the end.
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
   'http://localhost:8000/api';
 
 // ─── Axios Instance ─────────────────────────────────────────
-
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -27,11 +26,7 @@ const api = axios.create({
 });
 
 
-// ─── Request Interceptor — Attach JWT Token ─────────────────
-// Always attach the access_token for ALL users including Google auth.
-// After a proper Google auth exchange, the stored token is a Django JWT,
-// not the raw Google credential.
-
+// ─── Request Interceptor — Attach JWT Bearer Token ───────────
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access_token');
@@ -44,14 +39,12 @@ api.interceptors.request.use(
 );
 
 
-// ─── Response Interceptor — Handle 401 Token Refresh ────────
-
+// ─── Response Interceptor — Handle 401 + Token Refresh ───────
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    // Attempt token refresh on 401, but only once
     if (
       error.response?.status === 401 &&
       !originalRequest._retry
@@ -60,8 +53,9 @@ api.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem('refresh_token');
-        if (!refreshToken) throw new Error('No refresh token available');
+        if (!refreshToken) throw new Error('No refresh token');
 
+        // Use raw axios (not the intercepted instance) to avoid infinite loop
         const res = await axios.post(`${API_BASE_URL}/token/refresh/`, {
           refresh: refreshToken,
         });
@@ -71,8 +65,8 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${newAccess}`;
         return api(originalRequest);
 
-      } catch (refreshErr) {
-        // Refresh failed — clear all auth state and force re-login
+      } catch {
+        // Refresh failed — clear everything and redirect to login
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('user_name');
@@ -81,7 +75,7 @@ api.interceptors.response.use(
         localStorage.removeItem('credits');
         localStorage.removeItem('total_generations');
         window.location.href = '/auth';
-        return Promise.reject(refreshErr);
+        return Promise.reject(error);
       }
     }
 
@@ -90,42 +84,34 @@ api.interceptors.response.use(
 );
 
 
-// ─── Auth API ───────────────────────────────────────────────
-// Routes match Django: config/urls.py → path('api/', include('vfbackend.urls'))
-// vfbackend/urls.py → path('register/', ...), path('login/', ...) etc.
-
+// ─── Auth API ─────────────────────────────────────────────────
+// baseURL = .../api  →  full path = .../api/register/
 export const authAPI = {
-  register: (data) => api.post('/api/register/', data),
-  login: (data) => api.post('/api/login/', data),
-
-  // Exchange a Google credential token for Django JWT tokens
-  googleAuth: (credential) => api.post('/api/auth/google/', { credential }),
+  register: (data) => api.post('/register/', data),
+  login: (data) => api.post('/login/', data),
+  googleAuth: (credential) => api.post('/auth/google/', { credential }),
 };
 
 
-// ─── Generation API ─────────────────────────────────────────
-
+// ─── Generation API ──────────────────────────────────────────
 export const generateAPI = {
   generate: (data) => api.post('/generate/', data),
 };
 
 
 // ─── User API ────────────────────────────────────────────────
-
 export const userAPI = {
   getCredits: () => api.get('/user/credits/'),
 };
 
 
 // ─── Dashboard API ───────────────────────────────────────────
-
 export const dashboardAPI = {
   getStats: () => api.get('/dashboard/stats/'),
 };
 
 
-// ─── Projects API ───────────────────────────────────────────
-
+// ─── Projects API ────────────────────────────────────────────
 export const projectsAPI = {
   getAll: () => api.get('/projects/'),
   getById: (id) => api.get(`/projects/${id}/`),
