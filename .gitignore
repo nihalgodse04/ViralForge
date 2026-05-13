@@ -8,9 +8,6 @@ db.sqlite3
 .env
 *.env
 
-# Media/generated files
-media/
-
 # Node
 node_modules/
 dist/
