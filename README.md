@@ -132,6 +132,7 @@ MIT License
 
 # 📬 Contact
 
-**Nihaal**
+**Nihal Godse**
 Software Engineering Student
+Ajeenkya D Y Patil University
 AI SaaS & Frontend Development Enthusiast
