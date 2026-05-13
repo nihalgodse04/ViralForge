@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Footer.css';
 import logoLight from '../assets/logoLight.png';
 import logoDark from '../assets/logoDark.png';
@@ -6,6 +7,7 @@ import { ExternalLink } from 'lucide-react';
 import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
+  const navigate = useNavigate();
   const theme = document.documentElement.getAttribute('data-theme') || 'dark';
 
   return (
@@ -13,7 +15,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer-grid reveal">
           <div className="footer-brand">
-            <div className="logo">
+            <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
               <img src={theme === 'light' ? logoLight : logoDark} alt="ViralForge" className="logo-image" style={{ height: '40px' }} />
             </div>
             <p className="footer-desc">
@@ -42,7 +44,7 @@ const Footer = () => {
             <ul>
               <li><a href="#hero">About Us</a></li>
               <li><a href="#cta">Careers</a></li>
-              <li><a href="#cta">Blog</a></li>
+              <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigate('/blog'); }}>Blog</a></li>
               <li><a href="#cta">Press Kit</a></li>
             </ul>
           </div>

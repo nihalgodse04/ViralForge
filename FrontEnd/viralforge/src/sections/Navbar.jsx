@@ -8,7 +8,7 @@ import './Navbar.css';
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,14 +40,15 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
-        <div className="logo">
+        <a href="#hero" className="logo">
           <img src={theme === 'light' ? logoLight : logoDark} alt="ViralForge" className="logo-image" />
-        </div>
+        </a>
 
         <div className="nav-links desktop-only">
           <a href="#hero" className="nav-pill active">Home</a>
           <a href="#features">Features</a>
           <a href="#how-it-works">How It Works</a>
+          <a href="/blog" onClick={(e) => { e.preventDefault(); navigate('/blog'); }}>Blog</a>
           <a href="#cta">Join Us</a>
         </div>
 
@@ -76,6 +77,7 @@ const Navbar = () => {
         <a href="#hero" onClick={() => setMobileMenuOpen(false)}>Home</a>
         <a href="#features" onClick={() => setMobileMenuOpen(false)}>Features</a>
         <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
+        <a href="/blog" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); navigate('/blog'); }}>Blog</a>
         <a href="#cta" onClick={() => setMobileMenuOpen(false)}>Join Us</a>
         
         <div className="mobile-nav-actions">

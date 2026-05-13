@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import GlowButton from '../components/GlowButton';
 import { Play } from 'lucide-react';
 import HeroImg from '../assets/HeroImg.png';
 import './Hero.css';
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <section id="hero" className="hero">
       {/* Background elements */}
@@ -41,8 +43,8 @@ const Hero = () => {
           </p>
 
           <div className="hero-actions">
-            <button className="btn-primary-solid">Get Started</button>
-            <button className="btn-outline-play">
+            <button className="btn-primary-solid" onClick={() => navigate('/auth')}>Get Started</button>
+            <button className="btn-outline-play" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
               <Play fill="currentColor" size={14} />
               How it Works
             </button>
@@ -56,7 +58,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="bottom-pill">Top Brands Insight</div>
+      {/* <div className="bottom-pill">Top Brands Insight</div> */}
     </section>
   );
 };

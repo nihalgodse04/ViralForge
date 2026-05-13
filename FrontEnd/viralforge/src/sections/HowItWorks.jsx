@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GlassCard from '../components/GlassCard';
+import dash from '../assets/dash.png';
+import dash1 from '../assets/dash1.png';
+import dash2 from '../assets/dash2.png';
 import './HowItWorks.css';
 
 const HowItWorks = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [dash, dash1, dash2];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000); // Slide changes every 4 seconds
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
   return (
     <section id="how-it-works" className="how-it-works section-padding">
       <div className="container">
@@ -45,30 +58,15 @@ const HowItWorks = () => {
                   <span></span><span></span><span></span>
                 </div>
               </div>
-              <div className="preview-body">
-                <div className="preview-sidebar">
-                  <div className="sidebar-item active"></div>
-                  <div className="sidebar-item"></div>
-                  <div className="sidebar-item"></div>
-                  <div className="sidebar-item"></div>
-                </div>
-                <div className="preview-main">
-                  <div className="preview-search">
-                    <div className="search-icon"></div>
-                    <div className="search-line"></div>
+              <div className="preview-slideshow-container">
+                {slides.map((img, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`preview-slide ${idx === currentSlide ? 'active' : ''}`}
+                  >
+                    <img src={img} alt={`Dashboard preview ${idx + 1}`} />
                   </div>
-                  <div className="preview-content-box">
-                    <div className="box-header"></div>
-                    <div className="box-line l-full"></div>
-                    <div className="box-line l-full"></div>
-                    <div className="box-line l-half"></div>
-                  </div>
-                  <div className="preview-content-box">
-                    <div className="box-header" style={{ width: '30%' }}></div>
-                    <div className="box-line l-full"></div>
-                    <div className="box-line l-half"></div>
-                  </div>
-                </div>
+                ))}
               </div>
             </GlassCard>
           </div>

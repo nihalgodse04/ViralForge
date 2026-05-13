@@ -111,9 +111,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # ─── DATABASE ───────────────────────────────────────────────
 
+# DATABASES = {
+#     'default': dj_database_url.parse(
+#         os.environ.get("DATABASE_URL")
+#     )
+# }
+
 DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get("DATABASE_URL")
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
     )
 }
 

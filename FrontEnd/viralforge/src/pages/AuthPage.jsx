@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Sun, Moon } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import { authAPI } from '../services/api';
@@ -17,6 +18,16 @@ const AuthPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,7 +96,17 @@ const AuthPage = () => {
 
       <div className="auth-right">
         <div className="auth-form-container">
-          <div className="auth-logo-wrapper">
+          <div className="auth-top-actions">
+            <button className="back-button" onClick={() => navigate('/')}>
+              <ArrowLeft size={20} />
+              <span>Back</span>
+            </button>
+            <button className="theme-toggle" onClick={toggleTheme}>
+              {theme === 'dark' ? <Sun className="theme-icon light" size={20} /> : <Moon className="theme-icon dark" size={20} />}
+            </button>
+          </div>
+
+          <div className="auth-logo-wrapper" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
             <img src={logoLight} className="auth-logo light-theme-logo" alt="ViralForge Logo" width="120" height="44" />
             <img src={logoDark} className="auth-logo dark-theme-logo" alt="ViralForge Logo" width="120" height="44" />
           </div>
@@ -159,82 +180,101 @@ const AuthPage = () => {
             </button>
           </form>
 
-          <div className="auth-divider"><span>or</span></div>
+          {!isLogin && (
+            <>
+              <div className="auth-divider"><span>or</span></div>
+              <div className="social-login">
 
-          <div className="social-login">
-            <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%'
+                }}
+              >
 
-              <GoogleLogin
+                <GoogleLogin
 
-                onSuccess={(credentialResponse) => {
+                  onSuccess={(credentialResponse) => {
 
-                  try {
+                    try {
 
-                    const decoded = jwtDecode(
-                      credentialResponse.credential
-                    );
+                      const decoded = jwtDecode(
+                        credentialResponse.credential
+                      );
 
-                    localStorage.setItem(
-                      "access_token",
-                      credentialResponse.credential
-                    );
+                      // Demo Google session
+                      localStorage.setItem(
+                        "access_token",
+                        credentialResponse.credential
+                      );
 
-                    localStorage.setItem(
-                      "refresh_token",
-                      credentialResponse.credential
-                    );
+                      localStorage.setItem(
+                        "refresh_token",
+                        credentialResponse.credential
+                      );
 
-                    localStorage.setItem(
-                      "auth_provider",
-                      "google"
-                    );
+                      localStorage.setItem(
+                        "auth_provider",
+                        "google"
+                      );
 
-                    localStorage.setItem(
-                      "user_name",
-                      decoded.name || "Google User"
-                    );
+                      localStorage.setItem(
+                        "user_name",
+                        decoded.name || "Google User"
+                      );
 
-                    localStorage.setItem(
-                      "user_email",
-                      decoded.email || ""
-                    );
+                      localStorage.setItem(
+                        "user_email",
+                        decoded.email || ""
+                      );
 
-                    navigate("/dashboard");
+                      // Demo credits
+                      localStorage.setItem(
+                        "credits",
+                        "10000"
+                      );
 
-                  } catch (err) {
+                      localStorage.setItem(
+                        "total_generations",
+                        "0"
+                      );
 
-                    console.error(err);
+                      navigate("/dashboard");
+
+                    } catch (err) {
+
+                      console.error(err);
+
+                      setError(
+                        "Google Sign-Up failed."
+                      );
+                    }
+                  }}
+
+                  onError={() => {
 
                     setError(
-                      "Google Sign-In failed."
+                      "Google Sign-Up Failed"
                     );
-                  }
-                }}
+                  }}
 
-                onError={() => {
+                  shape="pill"
 
-                  setError(
-                    "Google Login Failed"
-                  );
-                }}
+                  size="large"
 
-                shape="pill"
+                  theme="outline"
 
-                size="medium"
+                  text="signup_with"
 
-                theme="outline"
+                  width="320"
+                />
 
-                text={
-                  isLogin
-                    ? "signin_with"
-                    : "signup_with"
-                }
-
-                width="250"
-              />
+              </div>
 
             </div>
-          </div>
+          </>
+          )}
 
           <p className="auth-footer">
             {isLogin ? "Don't have an account? " : 'Already have an account? '}

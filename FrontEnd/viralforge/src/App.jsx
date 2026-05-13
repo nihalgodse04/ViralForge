@@ -10,6 +10,7 @@ const ResultsPage = lazy(() => import('./pages/ResultsPage'));
 const HistoryPage = lazy(() => import('./pages/HistoryPage'));
 const FavoritesPage = lazy(() => import('./pages/FavoritesPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
 
 const PageLoader = () => (
   <div style={{
@@ -55,6 +56,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
           <Route path="/auth" element={<PublicRoute><AuthPage /></PublicRoute>} />
+          <Route path="/blog" element={<BlogPage />} />
 
           <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
             <Route index element={<DashboardHome />} />

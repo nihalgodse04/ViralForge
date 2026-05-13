@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'viral-forge-nihalgodse04-2249s-projects.vercel.app';
 
 // ─── Axios Instance ─────────────────────────────────────────
 
@@ -22,13 +22,35 @@ const api = axios.create({
 // ─── Request Interceptor — Attach JWT Token ─────────────────
 
 api.interceptors.request.use(
+
   (config) => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+
+    const token =
+      localStorage.getItem(
+        'access_token'
+      );
+
+    const provider =
+      localStorage.getItem(
+        'auth_provider'
+      );
+
+    // Google demo auth:
+    // do NOT attach fake JWT
+    if (provider === "google") {
+      return config;
     }
+
+    // Normal JWT auth
+    if (token) {
+
+      config.headers.Authorization =
+        `Bearer ${token}`;
+    }
+
     return config;
   },
+
   (error) => Promise.reject(error)
 );
 

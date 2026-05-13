@@ -78,11 +78,76 @@
   max-width: 400px;
 }
 
+/* ── Top Actions (Back button & Theme toggle) ── */
+.auth-top-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  margin-left: -12px;
+}
+
+.back-button:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.auth-top-actions .theme-toggle {
+  background: var(--border);
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-top-actions .theme-toggle:hover {
+  transform: translateY(-2px);
+  background: var(--nav-scrolled-bg);
+}
+
+.theme-icon {
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.theme-icon.light {
+  color: #F59E0B;
+}
+
+.theme-icon.dark {
+  color: #AAB3C5;
+}
+
 /* ── Logo ── */
 .auth-logo-wrapper {
   display: flex;
   justify-content: center;
   margin-bottom: 24px;
+  transition: transform 0.2s ease;
+}
+
+.auth-logo-wrapper:hover {
+  transform: scale(1.05);
 }
 
 .auth-logo {
