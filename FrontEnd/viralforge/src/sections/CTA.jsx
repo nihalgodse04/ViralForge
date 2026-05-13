@@ -15,12 +15,12 @@ const CTA = () => {
           <div className="cta-content">
             <h2 className="cta-title">Ready to <span className="text-gradient">Break the Algorithm?</span></h2>
             <p className="cta-subtitle">Join 100,000+ creators and brands who are already using ViralForge to scale their social presence.</p>
-            
+
             <div className="cta-actions">
               <button className="btn-primary-solid" onClick={() => navigate('/auth')}>Start Generating Free</button>
               <button className="btn-outline-play" onClick={() => setShowDemoModal(true)} style={{ border: '1px solid rgba(255,255,255,0.1)' }}>Book a Demo</button>
             </div>
-            
+
             <p className="cta-guarantee">No credit card required • 7-day free trial • Cancel anytime</p>
           </div>
         </div>
