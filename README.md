@@ -131,8 +131,8 @@ MIT License
 ---
 
 # 📬 Contact
-
 **Nihal Godse**
+nihalgodse04@gmail.com
 Software Engineering Student
 Ajeenkya D Y Patil University
 AI SaaS & Frontend Development Enthusiast
