@@ -1,60 +1,65 @@
 import React from 'react';
-import { Sparkles, Globe, Share2, Video } from 'lucide-react';
 import './Footer.css';
+import logoLight from '../assets/logoLight.png';
+import logoDark from '../assets/logoDark.png';
+import { ExternalLink } from 'lucide-react';
+import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer-grid">
+        <div className="footer-grid reveal">
           <div className="footer-brand">
             <div className="logo">
-              <Sparkles className="logo-icon" size={24} color="var(--primary)" />
-              <span className="logo-text">ViralForge <span className="text-gradient">AI</span></span>
+              <img src={theme === 'light' ? logoLight : logoDark} alt="ViralForge" className="logo-image" style={{ height: '40px' }} />
             </div>
             <p className="footer-desc">
-              The AI co-pilot for top-tier creators. Scale your content output without sacrificing quality.
+              Empowering the next generation of creators with AI-driven viral insights and content automation.
             </p>
             <div className="footer-social">
-              <a href="#" className="social-link"><Globe size={20} /></a>
-              <a href="#" className="social-link"><Share2 size={20} /></a>
-              <a href="#" className="social-link"><Video size={20} /></a>
+              <a href="#" className="social-link"><FaTwitter size={20} /></a>
+              <a href="#" className="social-link"><FaInstagram size={20} /></a>
+              <a href="#" className="social-link"><FaLinkedin size={20} /></a>
+              <a href="#" className="social-link"><ExternalLink size={20} /></a>
             </div>
           </div>
-          
+
           <div className="footer-links">
             <h4 className="footer-title">Product</h4>
             <ul>
-              <li><a href="#">Features</a></li>
-              <li><a href="#">Pricing</a></li>
-              <li><a href="#">Use Cases</a></li>
-              <li><a href="#">Integrations</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#cta">Case Studies</a></li>
+              <li><a href="#cta">API Access</a></li>
             </ul>
           </div>
-          
-          <div className="footer-links">
-            <h4 className="footer-title">Resources</h4>
-            <ul>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Creator Academy</a></li>
-              <li><a href="#">Help Center</a></li>
-              <li><a href="#">Community</a></li>
-            </ul>
-          </div>
-          
+
           <div className="footer-links">
             <h4 className="footer-title">Company</h4>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#hero">About Us</a></li>
+              <li><a href="#cta">Careers</a></li>
+              <li><a href="#cta">Blog</a></li>
+              <li><a href="#cta">Press Kit</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-links">
+            <h4 className="footer-title">Support</h4>
+            <ul>
+              <li><a href="#cta">Documentation</a></li>
+              <li><a href="#cta">Help Center</a></li>
+              <li><a href="#cta">Privacy Policy</a></li>
+              <li><a href="#cta">Terms of Service</a></li>
             </ul>
           </div>
         </div>
-        
+
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} ViralForge AI. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} ViralForge AI. All rights reserved. Crafted with passion for creators.</p>
         </div>
       </div>
     </footer>

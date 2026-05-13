@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import logoLight from '../assets/logoLight.png';
 import logoDark from '../assets/logoDark.png';
 import './Navbar.css';
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,6 +28,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on escape key
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
@@ -35,11 +45,10 @@ const Navbar = () => {
         </div>
 
         <div className="nav-links desktop-only">
-          <div className="nav-pill active">Products</div>
+          <a href="#hero" className="nav-pill active">Home</a>
           <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#about">About <span className="chevron">v</span></a>
-          <a href="#resources">Resources</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#cta">Join Us</a>
         </div>
 
         <div className="nav-actions desktop-only">
@@ -55,21 +64,31 @@ const Navbar = () => {
         <button 
           className="mobile-menu-btn mobile-only"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle Menu"
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
+      <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}></div>
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        <a href="#products" onClick={() => setMobileMenuOpen(false)}>Products</a>
+        <a href="#hero" onClick={() => setMobileMenuOpen(false)}>Home</a>
         <a href="#features" onClick={() => setMobileMenuOpen(false)}>Features</a>
-        <a href="#pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
-        <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
-        <a href="#resources" onClick={() => setMobileMenuOpen(false)}>Resources</a>
+        <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
+        <a href="#cta" onClick={() => setMobileMenuOpen(false)}>Join Us</a>
+        
         <div className="mobile-nav-actions">
-          <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); navigate('/auth'); }}>Sign In</a>
-          <button className="btn-get-started" style={{ width: '100%' }} onClick={() => navigate('/auth')}>Get Started</button>
+          <div className="mobile-theme-row" onClick={toggleTheme} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
+            <div className={`theme-icon ${theme}`}>
+              {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
+            </div>
+            <span style={{ marginLeft: '12px', fontSize: '16px', fontWeight: '500' }}>
+              {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
+            </span>
+          </div>
+          <a href="#" className="login-link" style={{ textAlign: 'center', borderBottom: 'none' }} onClick={(e) => { e.preventDefault(); navigate('/auth'); }}>Sign In</a>
+          <button className="btn-get-started" style={{ width: '100%', padding: '12px' }} onClick={() => navigate('/auth')}>Get Started</button>
         </div>
       </div>
     </nav>

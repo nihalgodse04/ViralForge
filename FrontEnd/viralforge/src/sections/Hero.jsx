@@ -6,7 +6,7 @@ import './Hero.css';
 
 const Hero = () => {
   return (
-    <section className="hero">
+    <section id="hero" className="hero">
       {/* Background elements */}
       <div className="hero-grid-bg"></div>
       <div className="hero-glow-center"></div>
@@ -41,7 +41,7 @@ const Hero = () => {
           </p>
 
           <div className="hero-actions">
-            <button className="btn-primary-solid">Book a Demo</button>
+            <button className="btn-primary-solid">Get Started</button>
             <button className="btn-outline-play">
               <Play fill="currentColor" size={14} />
               How it Works

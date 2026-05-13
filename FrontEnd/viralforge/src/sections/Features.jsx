@@ -3,15 +3,17 @@ import GlassCard from '../components/GlassCard';
 import './Features.css';
 import { Sparkles, Video, BarChart3, LayoutTemplate, Share2, Layers, Repeat, TrendingUp } from 'lucide-react';
 
-const FeatureCard = ({ icon: Icon, title, description, delay }) => {
+const FeatureCard = ({ icon: Icon, title, description, index }) => {
   return (
-    <GlassCard className={`feature-card animate-fade-in`} style={{ animationDelay: `${delay}s` }} glow>
-      <div className="feature-icon-wrapper">
-        <Icon size={24} className="feature-icon" />
-      </div>
-      <h3 className="feature-title">{title}</h3>
-      <p className="feature-description">{description}</p>
-    </GlassCard>
+    <div className="reveal" style={{ transitionDelay: `${index * 0.1}s` }}>
+      <GlassCard className={`feature-card`} glow>
+        <div className="feature-icon-wrapper">
+          <Icon size={24} className="feature-icon" />
+        </div>
+        <h3 className="feature-title">{title}</h3>
+        <p className="feature-description">{description}</p>
+      </GlassCard>
+    </div>
   );
 };
 
@@ -62,7 +64,7 @@ const Features = () => {
   return (
     <section id="features" className="features section-padding">
       <div className="container">
-        <div className="section-header text-center animate-fade-in">
+        <div className="section-header text-center reveal">
           <h2 className="section-title">
             The Ultimate <span className="text-gradient">Creator Arsenal</span>
           </h2>
@@ -78,7 +80,7 @@ const Features = () => {
               icon={feature.icon} 
               title={feature.title} 
               description={feature.description}
-              delay={index * 0.1}
+              index={index}
             />
           ))}
         </div>

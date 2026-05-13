@@ -3,49 +3,48 @@ import GlassCard from '../components/GlassCard';
 import './HowItWorks.css';
 
 const HowItWorks = () => {
-  const steps = [
-    { num: "01", title: "Enter Topic", desc: "Just type your idea or paste an article link." },
-    { num: "02", title: "Generate Script", desc: "AI crafts the perfect hook and cinematic script." },
-    { num: "03", title: "Customize", desc: "Tweak pacing, tone, and storyboard visuals." },
-    { num: "04", title: "Export", desc: "Download ready-to-shoot scripts and assets." }
-  ];
-
   return (
     <section id="how-it-works" className="how-it-works section-padding">
-      <div className="blob blob-2"></div>
-      
       <div className="container">
-        <div className="section-header text-center animate-fade-in">
-          <h2 className="section-title">
-            From Idea to <span className="text-gradient-primary">Viral Reality</span>
-          </h2>
-          <p className="section-subtitle">
-            A frictionless workflow designed specifically for high-output creators.
-          </p>
+        <div className="section-header text-center reveal">
+          <h2 className="section-title">The <span className="text-gradient">Viral Workflow</span></h2>
+          <p className="section-subtitle">Go from a vague idea to a platform-ready viral hit in less than 60 seconds.</p>
         </div>
 
         <div className="hiw-content">
-          <div className="hiw-steps">
-            {steps.map((step, idx) => (
-              <div className="step-item" key={idx}>
-                <div className="step-number text-gradient">{step.num}</div>
-                <div className="step-info">
-                  <h4 className="step-title">{step.title}</h4>
-                  <p className="step-desc">{step.desc}</p>
-                </div>
+          <div className="hiw-steps reveal-left">
+            <div className="step-item">
+              <div className="step-number">01</div>
+              <div className="step-info">
+                <h3 className="step-title">Describe Your Vision</h3>
+                <p className="step-desc">Enter a topic, a product, or even just a mood. Our AI understands context across any niche.</p>
               </div>
-            ))}
+            </div>
+
+            <div className="step-item">
+              <div className="step-number">02</div>
+              <div className="step-info">
+                <h3 className="step-title">AI Content Generation</h3>
+                <p className="step-desc">ViralForge generates scripts, hooks, and thumbnail concepts optimized for retention.</p>
+              </div>
+            </div>
+
+            <div className="step-item">
+              <div className="step-number">03</div>
+              <div className="step-info">
+                <h3 className="step-title">Refine & Export</h3>
+                <p className="step-desc">Fine-tune the output with our workspace tools and export directly to your production suite.</p>
+              </div>
+            </div>
           </div>
 
-          <div className="hiw-preview">
-            <GlassCard className="preview-card glow">
-              <div className="card-header">
-                <div className="window-controls">
+          <div className="hiw-preview reveal-right">
+            <GlassCard className="preview-card" glow>
+              <div className="preview-header">
+                <div className="preview-dots">
                   <span></span><span></span><span></span>
                 </div>
-                <div className="card-title">Dashboard Preview</div>
               </div>
-              
               <div className="preview-body">
                 <div className="preview-sidebar">
                   <div className="sidebar-item active"></div>
@@ -55,7 +54,7 @@ const HowItWorks = () => {
                 </div>
                 <div className="preview-main">
                   <div className="preview-search">
-                    <span className="search-icon"></span>
+                    <div className="search-icon"></div>
                     <div className="search-line"></div>
                   </div>
                   <div className="preview-content-box">
@@ -65,7 +64,7 @@ const HowItWorks = () => {
                     <div className="box-line l-half"></div>
                   </div>
                   <div className="preview-content-box">
-                    <div className="box-header"></div>
+                    <div className="box-header" style={{ width: '30%' }}></div>
                     <div className="box-line l-full"></div>
                     <div className="box-line l-half"></div>
                   </div>

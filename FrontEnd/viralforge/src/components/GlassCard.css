@@ -6,8 +6,9 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 1px; /* For gradient border effect */
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
+  will-change: transform;
 }
 
 .glass-card::before {
@@ -34,4 +35,10 @@
   border-radius: 15px; /* Slightly less to fit inside border */
   padding: 32px;
   height: 100%;
+}
+
+@media (max-width: 768px) {
+  .glass-card-inner {
+    padding: 24px;
+  }
 }

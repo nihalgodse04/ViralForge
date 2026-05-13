@@ -135,44 +135,97 @@
   border: none;
   color: var(--text);
   cursor: pointer;
+  z-index: 101;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--border);
 }
 
 .mobile-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  max-width: 320px;
+  height: 100vh;
   background: var(--nav-mobile-bg);
-  border-bottom: 1px solid var(--border);
-  padding: 24px;
+  border-left: 1px solid var(--border);
+  padding: 80px 32px 40px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  transform: translateY(-20px);
+  gap: 12px;
+  transform: translateX(100%);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+  z-index: 99;
 }
 
 .mobile-menu.open {
-  transform: translateY(0);
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 98;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.mobile-menu-overlay.open {
   opacity: 1;
   visibility: visible;
 }
 
 .mobile-menu a {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
   color: var(--text);
-  padding-bottom: 12px;
+  padding: 12px 0;
   border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.mobile-menu a::after {
+  content: '→';
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.2s ease;
+  font-size: 16px;
+}
+
+.mobile-menu a:hover {
+  color: var(--primary);
+  padding-left: 8px;
+}
+
+.mobile-menu a:hover::after {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .mobile-nav-actions {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: 16px;
+  margin-top: auto;
 }
 
 @media (max-width: 992px) {
