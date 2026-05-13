@@ -68,7 +68,8 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",           # Vite dev server
     "http://localhost:3000",
-    "https://viralforge.vercel.app",   # ← Replace with your actual Vercel URL
+    "https://viralforge.vercel.app",
+    "https://viral-forge-git-main-nihalgodse04-2249s-projects.vercel.app",   # ← Replace with your actual Vercel URL
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -83,7 +84,7 @@ CORS_ALLOW_HEADERS = [
 
 # Required for POST/DELETE from Vercel on HTTPS
 CSRF_TRUSTED_ORIGINS = [
-    "https://viral-forge-nihalgodse04-2249s-projects.vercel.app",   # ← Replace with your actual Vercel URL
+    "https://viral-forge-git-main-nihalgodse04-2249s-projects.vercel.app",   # ← Replace with your actual Vercel URL
 ]
 
 
@@ -93,8 +94,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
 }
 
