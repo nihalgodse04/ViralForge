@@ -88,7 +88,7 @@ def generate_thumbnail_image(prompt):
     """
 
     fallback_url = (
-        f"{MEDIA_URL}default-thumbnail.jpg"
+        "/static/images/default-thumbnail.jpg"
     )
 
     if not STABILITY_API_KEY:
@@ -237,8 +237,7 @@ def generate_thumbnails(
                     f"Thumbnail for {title}",
 
                 "image_url":
-                    f"{MEDIA_URL}"
-                    f"default-thumbnail.jpg",
+                    "/static/images/default-thumbnail.jpg",
             }
 
         ]
