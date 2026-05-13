@@ -1,0 +1,37 @@
+.glass-card {
+  position: relative;
+  border-radius: 16px;
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1px; /* For gradient border effect */
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  z-index: -1;
+  pointer-events: none;
+}
+
+.glass-card.glow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(123, 97, 255, 0.15);
+  border-color: rgba(123, 97, 255, 0.3);
+}
+
+.glass-card-inner {
+  background: var(--surface);
+  border-radius: 15px; /* Slightly less to fit inside border */
+  padding: 32px;
+  height: 100%;
+}

@@ -1,0 +1,278 @@
+/* ================================================
+   GENERATOR PAGE — VIRALFORGE AI
+   ================================================ */
+
+.generator-page {
+  max-width: 720px;
+  animation: dashFadeIn 0.45s ease-out;
+  width: 100%;
+}
+
+/* ── Header ── */
+.generator-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.generator-header-left {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+}
+
+.generator-header-icon {
+  width: 46px;
+  height: 46px;
+  background: rgba(123, 97, 255, 0.1);
+  border: 1px solid rgba(123, 97, 255, 0.18);
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--dash-primary);
+}
+
+.generator-header-text h1 {
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  color: var(--dash-text);
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.generator-header-text p {
+  font-size: 14px;
+  color: var(--dash-muted);
+  line-height: 1.5;
+}
+
+.btn-need-help {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--dash-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--dash-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 40px;
+  touch-action: manipulation;
+}
+
+.btn-need-help:hover {
+  background: rgba(123, 97, 255, 0.07);
+  border-color: rgba(123, 97, 255, 0.28);
+}
+
+/* ── Form ── */
+.generator-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Two Column Row ── */
+.generator-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Select Wrapper ── */
+.dash-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.dash-select-wrapper:focus-within {
+  border-color: var(--dash-border-focus);
+  box-shadow: 0 0 0 3px rgba(123, 97, 255, 0.08);
+}
+
+.dash-select-wrapper .input-icon {
+  color: var(--dash-primary);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dash-select-wrapper select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--dash-text);
+  font-size: 15px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 24px;
+  min-width: 0;
+}
+
+.dash-select-wrapper .select-chevron {
+  position: absolute;
+  right: 14px;
+  color: var(--dash-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── What will be generated card ── */
+.generator-preview-card {
+  background: rgba(123, 97, 255, 0.05);
+  border: 1px solid rgba(123, 97, 255, 0.14);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+.preview-card-icon {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--dash-primary), var(--dash-pink));
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.preview-card-icon svg { color: #fff; }
+
+.preview-card-text h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dash-text);
+  margin-bottom: 4px;
+}
+
+.preview-card-text p {
+  font-size: 13px;
+  color: var(--dash-muted);
+  line-height: 1.4;
+}
+
+.preview-card-text p span {
+  color: var(--dash-primary);
+  font-weight: 500;
+}
+
+/* ── Generate Button ── */
+.btn-generate {
+  width: 100%;
+  background: linear-gradient(135deg, var(--dash-primary), #6B4FE0);
+  color: #fff;
+  border: none;
+  border-radius: 13px;
+  padding: 17px 32px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, opacity 0.2s;
+  position: relative;
+  overflow: hidden;
+  min-height: 54px;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+.btn-generate::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-generate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(123, 97, 255, 0.35);
+}
+
+.btn-generate:hover::before { left: 100%; }
+
+.btn-generate:active { transform: translateY(0); }
+
+.btn-generate:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Spinner ── */
+.spin-animation { animation: spin 0.9s linear infinite; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .generator-header {
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .generator-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .generator-preview-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .btn-generate {
+    padding: 16px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .generator-header-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,552 @@
+/* ================================================
+   PROFILE PAGE & MODAL CSS
+   ================================================ */
+
+.profile-page {
+  width: 100%;
+}
+
+.profile-header {
+  margin-bottom: 32px;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ── Profile Card ── */
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.profile-avatar-large {
+  width: 96px;
+  height: 96px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--dash-primary), var(--dash-pink));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(123, 97, 255, 0.25);
+}
+
+.profile-edit-avatar {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--dash-surface);
+  border: 1px solid var(--dash-border);
+  color: var(--dash-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-edit-avatar:hover {
+  background: var(--dash-card-hover);
+  color: var(--dash-primary);
+  border-color: var(--dash-primary);
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dash-text);
+  margin-bottom: 4px;
+}
+
+.profile-email {
+  font-size: 14px;
+  color: var(--dash-muted);
+  margin-bottom: 16px;
+}
+
+.profile-badge-plan {
+  background: rgba(123, 97, 255, 0.1);
+  color: var(--dash-primary-light);
+  border: 1px solid rgba(123, 97, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.profile-stats {
+  display: flex;
+  width: 100%;
+  border-top: 1px solid var(--dash-border);
+  border-bottom: 1px solid var(--dash-border);
+  padding: 16px 0;
+  margin-bottom: 16px;
+}
+
+.profile-stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-stat-divider {
+  width: 1px;
+  background: var(--dash-border);
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dash-text);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--dash-muted);
+}
+
+/* ── Profile Details Column ── */
+.profile-details-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Info List */
+.info-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--dash-border);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.info-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--dash-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dash-muted);
+}
+
+[data-theme='light'] .info-icon {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-label {
+  font-size: 12px;
+  color: var(--dash-muted);
+}
+
+.info-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dash-text);
+}
+
+/* Plan Banner */
+.plan-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, rgba(123, 97, 255, 0.05), transparent);
+  border: 1px solid rgba(123, 97, 255, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.plan-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.plan-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--dash-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: var(--dash-glow-primary);
+}
+
+.plan-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dash-text);
+  margin-bottom: 2px;
+}
+
+.plan-desc {
+  font-size: 13px;
+  color: var(--dash-muted);
+}
+
+/* Usage Bar */
+.usage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.usage-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dash-text);
+}
+
+.usage-numbers {
+  font-size: 13px;
+  color: var(--dash-muted);
+}
+
+.usage-numbers strong {
+  color: var(--dash-text);
+  font-size: 15px;
+}
+
+.usage-bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--dash-border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.usage-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--dash-primary), var(--dash-pink));
+  border-radius: 999px;
+  transition: width 1s ease-out;
+}
+
+.usage-hint {
+  font-size: 12px;
+  color: var(--dash-muted);
+}
+
+/* ================================================
+   PLAN MODAL
+   ================================================ */
+
+.plan-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.plan-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme='light'] .plan-modal-backdrop {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.plan-modal-container {
+  position: relative;
+  background: var(--dash-surface);
+  border: 1px solid var(--dash-border);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 40px;
+  box-shadow: var(--dash-shadow-lg);
+  z-index: 101;
+}
+
+.plan-modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  color: var(--dash-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.plan-modal-close:hover {
+  color: var(--dash-text);
+  background: var(--dash-card-hover);
+  transform: rotate(90deg);
+}
+
+.plan-modal-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.plan-modal-header h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--dash-text);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.plan-modal-header p {
+  font-size: 16px;
+  color: var(--dash-muted);
+}
+
+.plan-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Pricing Cards */
+.pricing-card {
+  position: relative;
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  border-radius: 20px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(123, 97, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='light'] .pricing-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.pricing-card-featured {
+  background: linear-gradient(180deg, rgba(123, 97, 255, 0.05) 0%, var(--dash-card) 100%);
+  border-color: var(--dash-primary);
+  box-shadow: 0 8px 32px rgba(123, 97, 255, 0.15);
+  transform: scale(1.02);
+}
+
+.pricing-card-featured:hover {
+  transform: scale(1.02) translateY(-4px);
+  border-color: var(--dash-primary-light);
+  box-shadow: 0 16px 48px rgba(123, 97, 255, 0.25);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--dash-primary), var(--dash-pink));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--dash-border);
+}
+
+.pricing-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dash-muted);
+  margin-bottom: 16px;
+}
+
+.pricing-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.pricing-price .amount {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--dash-text);
+  letter-spacing: -1px;
+}
+
+.pricing-price .period {
+  font-size: 15px;
+  color: var(--dash-muted);
+}
+
+.pricing-credits {
+  display: inline-block;
+  background: rgba(123, 97, 255, 0.1);
+  color: var(--dash-primary-light);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex: 1;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--dash-text);
+}
+
+.feature-icon {
+  color: var(--dash-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pricing-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.pricing-btn-primary {
+  background: var(--dash-primary);
+  color: #fff;
+  border: none;
+}
+
+.pricing-btn-primary:hover {
+  background: var(--dash-primary-light);
+  box-shadow: var(--dash-glow-primary);
+}
+
+.pricing-btn-outline {
+  background: transparent;
+  color: var(--dash-text);
+  border: 1px solid var(--dash-border);
+}
+
+.pricing-btn-outline:hover {
+  background: var(--dash-card-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='light'] .pricing-btn-outline:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-card {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .plan-modal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .pricing-card-featured {
+    transform: none;
+  }
+  .pricing-card-featured:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 768px) {
+  .plan-modal-container {
+    padding: 32px 20px;
+  }
+  
+  .plan-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .plan-banner button {
+    width: 100%;
+  }
+}
