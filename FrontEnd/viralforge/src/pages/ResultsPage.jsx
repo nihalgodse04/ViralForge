@@ -152,7 +152,7 @@ const ResultsPage = () => {
 
   const handleToggleFavorite = async () => {
     if (!project) return;
-    
+
     // Optimistic update
     const newIsFavorite = !project.is_favorite;
     setProject(prev => ({ ...prev, is_favorite: newIsFavorite }));
@@ -281,7 +281,7 @@ const ResultsPage = () => {
           <p className="results-meta">Generated on {createdAt}</p>
         </div>
         <div className="results-actions">
-          <button 
+          <button
             className={`btn-favorite ${project?.is_favorite ? 'active' : ''}`}
             onClick={handleToggleFavorite}
             title={project?.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'}
@@ -461,7 +461,11 @@ const ResultsPage = () => {
                         key={`ai-${i}`}
                         title={thumb.prompt?.split(',')[0] || thumbnailTitles[i] || 'AI Thumbnail'}
                         variant={variants[i % variants.length]}
-                        imageUrl={thumb.image_url ? `${(import.meta.env.VITE_API_URL || 'http://localhost:8000/api').replace('/api', '')}${thumb.image_url}` : null}
+                        imageUrl={
+                          thumb.image_url
+                            ? `https://viralforge-api-909u.onrender.com${thumb.image_url}`
+                            : null
+                        }
                         prompt={thumb.prompt}
                         badge="AI Generated"
                       />
