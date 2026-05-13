@@ -95,11 +95,11 @@ api.interceptors.response.use(
 // vfbackend/urls.py → path('register/', ...), path('login/', ...) etc.
 
 export const authAPI = {
-  register: (data) => api.post('/register/', data),
-  login: (data) => api.post('/login/', data),
+  register: (data) => api.post('/api/register/', data),
+  login: (data) => api.post('/api/login/', data),
 
   // Exchange a Google credential token for Django JWT tokens
-  googleAuth: (credential) => api.post('/auth/google/', { credential }),
+  googleAuth: (credential) => api.post('/api/auth/google/', { credential }),
 };
 
 

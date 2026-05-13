@@ -83,7 +83,7 @@ CORS_ALLOW_HEADERS = [
 
 # Required for POST/DELETE from Vercel on HTTPS
 CSRF_TRUSTED_ORIGINS = [
-    "https://viralforge.vercel.app",   # ← Replace with your actual Vercel URL
+    "https://viral-forge-nihalgodse04-2249s-projects.vercel.app",   # ← Replace with your actual Vercel URL
 ]
 
 
