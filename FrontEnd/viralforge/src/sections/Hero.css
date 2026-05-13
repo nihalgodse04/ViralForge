@@ -159,7 +159,6 @@
 }
 
 .btn-primary-solid {
-  position: relative;
   background: #5D3FD3;
   color: #fff;
   border: none;
@@ -168,71 +167,11 @@
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* The glowing border wrapper */
-.btn-primary-solid::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #9D4EDD, #FF4FD8, #7B61FF, #9D4EDD);
-  background-size: 300% 300%;
-  border-radius: 10px;
-  z-index: -1;
-  animation: movingGradientGlow 4s ease infinite;
-  filter: blur(2px);
-  opacity: 0.7;
-  transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-/* The solid inner button body */
-.btn-primary-solid::after {
-  content: '';
-  position: absolute;
-  inset: 1px;
-  /* creates a 1px inner spacing which forms the border thickness */
-  background: #5D3FD3;
-  border-radius: 7px;
-  z-index: -1;
-  transition: background 0.3s ease;
+  transition: all 0.2s;
 }
 
 .btn-primary-solid:hover {
-  transform: translateY(-1px);
-  color: #fff;
-}
-
-.btn-primary-solid:hover::after {
   background: #4a32a8;
-  /* slight darker hover color */
-}
-
-.btn-primary-solid:hover::before {
-  filter: blur(5px);
-  /* stronger glow on hover */
-  opacity: 1;
-}
-
-@keyframes movingGradientGlow {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 .btn-outline-play {

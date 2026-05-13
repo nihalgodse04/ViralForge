@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import GlowButton from '../components/GlowButton';
+import BorderGlow from '../components/BorderGlow';
 import { Play } from 'lucide-react';
 import HeroImg from '../assets/HeroImg.png';
 import './Hero.css';
@@ -43,7 +43,22 @@ const Hero = () => {
           </p>
 
           <div className="hero-actions">
-            <button className="btn-primary-solid" onClick={() => navigate('/auth')}>Get Started</button>
+            <BorderGlow
+              className="border-glow-btn"
+              edgeSensitivity={30}
+              glowColor="268 100 76"
+              backgroundColor="#5D3FD3"
+              borderRadius={8}
+              glowRadius={40}
+              glowIntensity={1.2}
+              coneSpread={25}
+              animated={true}
+              colors={['#9D4EDD', '#FF4FD8', '#7B61FF']}
+            >
+              <button className="btn-primary-solid" onClick={() => navigate('/auth')}>
+                Get Started
+              </button>
+            </BorderGlow>
             <button className="btn-outline-play" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
               <Play fill="currentColor" size={14} />
               How it Works

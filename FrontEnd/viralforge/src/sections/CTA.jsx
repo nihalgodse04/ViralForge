@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Mail, Phone, Clock, X } from 'lucide-react';
+import BorderGlow from '../components/BorderGlow';
 import './CTA.css';
 
 const CTA = () => {
@@ -17,7 +18,22 @@ const CTA = () => {
             <p className="cta-subtitle">Join 100,000+ creators and brands who are already using ViralForge to scale their social presence.</p>
 
             <div className="cta-actions">
-              <button className="btn-primary-solid" onClick={() => navigate('/auth')}>Start Generating Free</button>
+              <BorderGlow
+                className="border-glow-btn"
+                edgeSensitivity={30}
+                glowColor="268 100 76"
+                backgroundColor="#5D3FD3"
+                borderRadius={8}
+                glowRadius={40}
+                glowIntensity={1.2}
+                coneSpread={25}
+                animated={true}
+                colors={['#9D4EDD', '#FF4FD8', '#7B61FF']}
+              >
+                <button className="btn-primary-solid" onClick={() => navigate('/auth')}>
+                  Start Generating Free
+                </button>
+              </BorderGlow>
               <button className="btn-outline-play" onClick={() => setShowDemoModal(true)} style={{ border: '1px solid rgba(255,255,255,0.1)' }}>Book a Demo</button>
             </div>
 

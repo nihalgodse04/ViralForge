@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import BorderGlow from '../components/BorderGlow';
 import logoLight from '../assets/logoLight.png';
 import logoDark from '../assets/logoDark.png';
 import './Navbar.css';
@@ -54,7 +55,20 @@ const Navbar = () => {
 
         <div className="nav-actions desktop-only">
           <a href="#" className="login-link" onClick={(e) => { e.preventDefault(); navigate('/auth'); }}>Sign In</a>
-          <button className="btn-get-started" onClick={() => navigate('/auth')}>Get Started</button>
+          <BorderGlow
+            className="border-glow-btn"
+            edgeSensitivity={30}
+            glowColor="268 100 76"
+            backgroundColor="#5D3FD3"
+            borderRadius={8}
+            glowRadius={25}
+            glowIntensity={1.0}
+            coneSpread={25}
+            animated={false}
+            colors={['#9D4EDD', '#FF4FD8', '#7B61FF']}
+          >
+            <button className="btn-get-started" onClick={() => navigate('/auth')}>Get Started</button>
+          </BorderGlow>
           <button className="theme-toggle" onClick={toggleTheme}>
             <div className={`theme-icon ${theme}`}>
               {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
@@ -90,10 +104,25 @@ const Navbar = () => {
             </span>
           </div>
           <a href="#" className="login-link" style={{ textAlign: 'center', borderBottom: 'none' }} onClick={(e) => { e.preventDefault(); navigate('/auth'); }}>Sign In</a>
-          <button className="btn-get-started" style={{ width: '100%', padding: '12px' }} onClick={() => navigate('/auth')}>Get Started</button>
+          <BorderGlow
+            className="border-glow-btn"
+            style={{ width: '100%' }}
+            edgeSensitivity={30}
+            glowColor="268 100 76"
+            backgroundColor="#5D3FD3"
+            borderRadius={8}
+            glowRadius={25}
+            glowIntensity={1.0}
+            coneSpread={25}
+            animated={false}
+            colors={['#9D4EDD', '#FF4FD8', '#7B61FF']}
+          >
+            <button className="btn-get-started" style={{ width: '100%', padding: '12px' }} onClick={() => navigate('/auth')}>Get Started</button>
+          </BorderGlow>
         </div>
       </div>
     </nav>
+
   );
 };
 

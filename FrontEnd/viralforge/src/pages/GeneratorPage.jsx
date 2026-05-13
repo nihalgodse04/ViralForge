@@ -5,6 +5,7 @@ import {
   List, FileEdit, Globe, Film, Sparkles, ChevronDown, Loader
 } from 'lucide-react';
 import { generateAPI } from '../services/api';
+import BorderGlow from '../components/BorderGlow';
 import '../styles/generator.css';
 
 const GeneratorPage = () => {
@@ -292,19 +293,33 @@ const GeneratorPage = () => {
         </div>
 
         {/* Generate Button */}
-        <button type="submit" className="btn-generate" disabled={loading}>
-          {loading ? (
-            <>
-              <Loader size={20} className="spin-animation" />
-              Generating with AI...
-            </>
-          ) : (
-            <>
-              <Sparkles size={20} />
-              Generate Content
-            </>
-          )}
-        </button>
+        <BorderGlow
+          className="border-glow-btn"
+          style={{ width: '100%' }}
+          edgeSensitivity={30}
+          glowColor="252 100 66" // pink/purple tone
+          backgroundColor="linear-gradient(135deg, #7B61FF, #6B4FE0)"
+          borderRadius={13}
+          glowRadius={45}
+          glowIntensity={1.2}
+          coneSpread={25}
+          animated={true}
+          colors={['#FF4FD8', '#7B61FF', '#00E5FF']}
+        >
+          <button type="submit" className="btn-generate" disabled={loading}>
+            {loading ? (
+              <>
+                <Loader size={20} className="spin-animation" />
+                Generating with AI...
+              </>
+            ) : (
+              <>
+                <Sparkles size={20} />
+                Generate Content
+              </>
+            )}
+          </button>
+        </BorderGlow>
 
       </form>
     </div>
