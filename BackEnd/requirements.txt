@@ -1,6 +1,7 @@
 annotated-types==0.7.0
 anyio==4.13.0
 asgiref==3.11.1
+boto3
 certifi==2026.4.22
 cffi==2.0.0
 charset-normalizer==3.4.7
@@ -12,6 +13,7 @@ Django==6.0.5
 django-cors-headers==4.9.0
 djangorestframework==3.17.1
 djangorestframework_simplejwt==5.5.1
+django-storages
 future==1.0.0
 google-ai-generativelanguage==0.6.15
 google-api-core==2.25.2
@@ -22,7 +24,6 @@ google-genai==2.0.1
 googleapis-common-protos==1.75.0
 grpcio==1.80.0
 grpcio-status==1.71.2
-gunicorn==26.0.0
 h11==0.16.0
 httpcore==1.0.9
 httplib2==0.31.2
@@ -55,4 +56,3 @@ uritemplate==4.2.0
 urllib3==2.7.0
 websockets==16.0
 whitenoise==6.12.0
-wsgi-request
