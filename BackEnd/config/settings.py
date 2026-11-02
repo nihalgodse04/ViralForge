@@ -66,10 +66,12 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",           # Vite dev server
+    "http://localhost:5173",  # Vite dev server
     "http://localhost:3000",
+    "https://vercel.app",
     "https://viral-forge-eight.vercel.app",   # ← Replace with your actual Vercel URL
 ]
+APPEND_SLASH = False
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = [
