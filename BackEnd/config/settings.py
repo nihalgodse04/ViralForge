@@ -22,7 +22,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-fallback-key')
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
 
 
 # ─── INSTALLED APPS ─────────────────────────────────────────
@@ -196,9 +196,39 @@ STATICFILES_DIRS = [
 
 # ─── MEDIA FILES ────────────────────────────────────────────
 
-MEDIA_URL = '/media/'
+import os
 
-MEDIA_ROOT = BASE_DIR / 'media'
+# Check if running on Vercel
+IS_VERCEL = os.environ.get('VERCEL') == '1'
+
+if IS_VERCEL:
+    # Cloudflare R2 Configurations via S3 API compatibility layer
+    AWS_ACCESS_KEY_ID = os.environ.get('R2_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('R2_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('R2_BUCKET_NAME')
+    
+    # Custom endpoint provided by Cloudflare R2 Account 
+    AWS_S3_ENDPOINT_URL = os.environ.get('R2_ENDPOINT_URL')
+    
+    # Public domain URL where users fetch media images from
+    AWS_S3_CUSTOM_DOMAIN = os.environ.get('R2_PUBLIC_DOMAIN')
+    
+    AWS_QUERYSTRING_AUTH = False
+    AWS_DEFAULT_ACL = None  # Cloudflare R2 manages privacy natively via public bucket toggles
+    
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+else:
+    # Local configurations for local machine development
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # ─── DEFAULT PRIMARY KEY FIELD ──────────────────────────────
