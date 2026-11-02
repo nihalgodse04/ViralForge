@@ -13,7 +13,7 @@ import axios from 'axios';
 
 // ─── Base URL ────────────────────────────────────────────────
 const API_BASE_URL =
-  import.meta.env.Config  ||
+  import.meta.env.VITE_CONFIG  ||
   'http://localhost:8000/api';
 
 // ─── Axios Instance ─────────────────────────────────────────
