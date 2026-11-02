@@ -63,15 +63,21 @@ MIDDLEWARE = [
 # ─── CORS ────────────────────────────────────────────────────
 # Allows the Vercel frontend to call this API.
 # Add your exact Vercel domain below.
+APPEND_SLASH = False
 
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vite dev server
+    "http://localhost:5173", # Vite dev server
+    "http://127.0.0.1:5173",
     "http://localhost:3000",
     "https://vercel.app",
     "https://viral-forge-eight.vercel.app",   # ← Replace with your actual Vercel URL
 ]
-APPEND_SLASH = False
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://[a-zA-Z0-9-]+-.*\.vercel\.app$",
+    r"^https://.*\.vercel\.app$",
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = [
