@@ -13,8 +13,7 @@ import axios from 'axios';
 
 // ─── Base URL ────────────────────────────────────────────────
 const API_BASE_URL =
-  import.meta.env.VITE_CONFIG  ||
-  'http://localhost:8000/api';
+  import.meta.env.VITE_CONFIG || import.meta.env.VITE_API_URL || "https://viral-forge-7t9a-8lp614ubk-nihalgodse04-2249s-projects.vercel.app";
 
 // ─── Axios Instance ─────────────────────────────────────────
 const api = axios.create({
