@@ -12,8 +12,11 @@
 import axios from 'axios';
 
 // ─── Base URL ────────────────────────────────────────────────
+// The backend app maps endpoints behind /api, so we explicitly add it here
 const API_BASE_URL =
-  import.meta.env.VITE_CONFIG || import.meta.env.VITE_API_URL || "https://viral-forge-7t9a-8lp614ubk-nihalgodse04-2249s-projects.vercel.app";
+  import.meta.env.VITE_CONFIG || 
+  import.meta.env.VITE_API_URL || 
+  "https://vercel.app";
 
 // ─── Axios Instance ─────────────────────────────────────────
 const api = axios.create({
@@ -54,8 +57,8 @@ api.interceptors.response.use(
         const refreshToken = sessionStorage.getItem('refresh_token');
         if (!refreshToken) throw new Error('No refresh token');
 
-        // Use raw axios (not the intercepted instance) to avoid infinite loop
-        const res = await axios.post(`${API_BASE_URL}/token/refresh/`, {
+        // Cleaned trailing slash structure to bypass preflight edge redirects
+        const res = await axios.post(`${API_BASE_URL}/token/refresh`, {
           refresh: refreshToken,
         });
 
@@ -65,14 +68,12 @@ api.interceptors.response.use(
         return api(originalRequest);
 
       } catch {
-        // Refresh failed — clear everything and redirect to login
         sessionStorage.clear();
         window.location.href = '/auth';
         return Promise.reject(error);
       }
     }
 
-    // 401 on non-retry requests: clear session state
     if (error.response?.status === 401) {
       sessionStorage.clear();
     }
@@ -83,41 +84,40 @@ api.interceptors.response.use(
 
 
 // ─── Auth API ─────────────────────────────────────────────────
-// baseURL = .../api  →  full path = .../api/register/
+// Since baseURL already appends /api, we map endpoints as clean sub-routes
 export const authAPI = {
-  register: (data) => api.post('/api/register', data),
-  login: (data) => api.post('/login/', data),
-  googleAuth: (credential) => api.post('/auth/google/', { credential }),
+  register: (data) => api.post('/register', data),
+  login: (data) => api.post('/login', data),
+  googleAuth: (credential) => api.post('/auth/google', { credential }),
 };
 
 
 // ─── Generation API ──────────────────────────────────────────
 export const generateAPI = {
-  generate: (data) => api.post('/generate/', data),
+  generate: (data) => api.post('/generate', data),
 };
 
 
 // ─── User API ────────────────────────────────────────────────
 export const userAPI = {
-  getCredits: () => api.get('/user/credits/'),
+  getCredits: () => api.get('/user/credits'),
 };
 
 
 // ─── Dashboard API ───────────────────────────────────────────
 export const dashboardAPI = {
-  getStats: () => api.get('/dashboard/stats/'),
+  getStats: () => api.get('/dashboard/stats'),
 };
 
 
 // ─── Projects API ────────────────────────────────────────────
 export const projectsAPI = {
-  getAll: () => api.get('/projects/'),
-  getById: (id) => api.get(`/projects/${id}/`),
-  regenerate: (id) => api.post(`/projects/${id}/regenerate/`),
-  regenerateThumbnails: (id) => api.post(`/projects/${id}/regenerate-thumbnails/`),
-  getFavorites: () => api.get('/favorites/'),
-  toggleFavorite: (id) => api.post(`/projects/${id}/favorite/`),
+  getAll: () => api.get('/projects'),
+  getById: (id) => api.get(`/projects/${id}`),
+  regenerate: (id) => api.post(`/projects/${id}/regenerate`),
+  regenerateThumbnails: (id) => api.post(`/projects/${id}/regenerate-thumbnails`),
+  getFavorites: () => api.get('/favorites'),
+  toggleFavorite: (id) => api.post(`/projects/${id}/favorite`),
 };
-
 
 export default api;

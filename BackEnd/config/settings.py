@@ -63,8 +63,6 @@ MIDDLEWARE = [
 # ─── CORS ────────────────────────────────────────────────────
 # Allows the Vercel frontend to call this API.
 # Add your exact Vercel domain below.
-APPEND_SLASH = False
-
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", # Vite dev server
