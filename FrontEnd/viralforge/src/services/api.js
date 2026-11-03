@@ -85,7 +85,7 @@ api.interceptors.response.use(
 // ─── Auth API ─────────────────────────────────────────────────
 // baseURL = .../api  →  full path = .../api/register/
 export const authAPI = {
-  register: (data) => api.post('/api/register/', data),
+  register: (data) => api.post('/api/register', data),
   login: (data) => api.post('/login/', data),
   googleAuth: (credential) => api.post('/auth/google/', { credential }),
 };

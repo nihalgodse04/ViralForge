@@ -22,7 +22,7 @@ from .views import (
 urlpatterns = [
 
     # ── Auth ──
-    path('register/', RegisterView.as_view(), name='register'),
+    path('register', RegisterView.as_view(), name='register'),
     path('login/', CustomTokenObtainPairView.as_view(), name='login'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/google/', google_auth, name='google_auth'),
